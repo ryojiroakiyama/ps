@@ -4,11 +4,12 @@ int	sx_and_rx(t_circl *nil[], t_oplist *nop, int i)
 {
 	if (nil[i]->size < 2)
 		return (1);
-	if (nil[i]->prev->num + 1 == nil[i]->next->next->num)
+	if (nil[i]->num == nil[i]->next->next->num)
 		sx(nil, i, nop);
-	if (nil[i]->prev->num + 1 == nil[i]->next->num)
+	if (nil[i]->num == nil[i]->next->num)
 	{
 		rx(nil, i, nop);
+		nil[i]->num++;
 		return (0);
 	}
 	else
@@ -123,7 +124,9 @@ void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
 		while (nil[B]->size)
 		{
 			px(nil, A, nop);
-			rx(nil, A, nop);
+			sx_and_rx(nil, nop, A);
+//			rx(nil, A, nop);
+//			nil[A]->num++;
 		}
 	}
 }

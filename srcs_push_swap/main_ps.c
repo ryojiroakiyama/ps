@@ -32,7 +32,7 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 		{
 			if (nil[B]->next->num > median)
 				px(nil, A, nop);
-			else if (nil[A]->prev->num + 1 == nil[B]->next->num)
+			else if (nil[B]->next->num == nil[A]->num)
 				px(nil, A, nop);
 			else
 				rx(nil, B, nop);
@@ -55,7 +55,6 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 		{
 			if (sx_and_rx(nil, nop, A) == 1)
 				px(nil, B, nop);
-			sx_and_rx(nil, nop, B);
 		}
 		handle_stackb(nil, nop);
 	}
