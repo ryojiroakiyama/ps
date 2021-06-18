@@ -4,7 +4,11 @@ int	detect(t_circl *nil[])
 {
 	if (nil[A]->size < 2)
 		return (0);
-	if (nil[B]->next->num == nil[A]->num)
+	if (nil[B]->size < 2)
+		return (0);
+	if (nil[A]->num == nil[B]->prev->num)
+		return (1);
+	if (nil[A]->num == nil[B]->next->num)
 		return (1);
 	if (nil[A]->num == nil[A]->next->next->num)
 		return (1);
@@ -17,7 +21,9 @@ void	sx_and_rx(t_circl *nil[], t_oplist *nop)
 {
 //	if (nil[A]->size < 2)
 //		return ;
-	if (nil[B]->next->num == nil[A]->num)
+	if (nil[A]->num == nil[B]->prev->num)
+		rrx(nil, B, nop);
+	if (nil[A]->num == nil[B]->next->num)
 		px(nil, A, nop);
 	if (nil[A]->num == nil[A]->next->next->num)
 		sx(nil, A, nop);
