@@ -25,10 +25,10 @@ void	optimize_ra(t_oplist *now)
 		now->prev->op = -1;
 		now->op = -1;
 	}
-	else if (now->next->op == RB)
+	else if (now->prev->op == RB)
 	{
-		now->op = -1;
-		now->next->op = RR;
+		now->prev->op = -1;
+		now->op = RR;
 	}
 }
 
@@ -39,15 +39,18 @@ void	optimize_rb(t_oplist *now)
 		now->prev->op = -1;
 		now->op = -1;
 	}
-	else if (now->next->op == RA)
+	else if (now->prev->op == RA)
 	{
-		now->op = -1;
-		now->next->op = RR;
+		now->prev->op = -1;
+		now->op = RR;
 	}
 }
 
 void	optimize_rr(t_oplist *now)
 {
 	if (now->prev->op == -1 && now->prev->prev->op == RRR)
+	{
+		now->prev->prev->op = -1;
 		now->op = -1;
+	}
 }

@@ -84,26 +84,43 @@ void	sort_3v(t_circl *nil[], int i, t_oplist *nop)
 	}
 }
 
-void	sort_5v(t_circl *nil[], int i, t_oplist *nop)
+void	sort_5v_B(t_circl *nil[], t_oplist *nop)
 {
-	int		opp;
-	int		min;
+	int		push_num;
 	int		presize;
 
-	if (is_sorted(nil, i))
+	presize = nil[B]->size;
+	if (is_sorted(nil, B))
 		return ;
-	min = get_minnum(nil, i);
-	opp = (i - 1) * -1;
-	presize = nil[i]->size;
-	while (nil[i]->size > 3)
+	push_num = get_minnum(nil, B);
+	while (nil[B]->size > 3)
 	{
-		rx_or_rrx(nil, i, min, nop);
-		px(nil, opp, nop);
-		min += 1;
+		rx_or_rrx(nil, B, push_num, nop);
+		px(nil, A, nop);
+		sx_and_rx(nil, nop, A);
+		push_num++;
 	}
-	sort_3v(nil, i, nop);
-	while (nil[i]->size < presize)
-		px(nil, i, nop);
+	sort_3v(nil, B, nop);
+}
+
+void	sort_5v_A(t_circl *nil[], t_oplist *nop)
+{
+	int		push_num;
+	int		presize;
+
+	presize = nil[A]->size;
+	if (is_sorted(nil, A))
+		return ;
+	push_num = get_minnum(nil, A);
+	while (nil[A]->size > 3)
+	{
+		rx_or_rrx(nil, A, push_num, nop);
+		px(nil, B, nop);
+		push_num++;
+	}
+	sort_3v(nil, A, nop);
+	while (nil[A]->size < presize)
+		px(nil, A, nop);
 }
 
 void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
@@ -117,16 +134,13 @@ void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
 	}
 	else if (nil[i]->size == 3)
 		sort_3v(nil, i, nop);
-	else if (nil[i]->size <= 5)
-		sort_5v(nil, i, nop);
-	if (i == B)
+	else if (nil[i]->size <= 5 && i == A)
+		sort_5v_A(nil, nop);
+	else if (nil[i]->size <= 5 && i == B)
+		sort_5v_B(nil, nop);
+	while (nil[B]->size)
 	{
-		while (nil[B]->size)
-		{
-			px(nil, A, nop);
-			sx_and_rx(nil, nop, A);
-//			rx(nil, A, nop);
-//			nil[A]->num++;
-		}
+		px(nil, A, nop);
+		sx_and_rx(nil, nop, A);
 	}
 }

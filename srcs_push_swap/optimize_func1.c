@@ -2,26 +2,39 @@
 
 void	optimize_sa(t_oplist *now)
 {
-	if (now->next->op == SB)
+	if (now->prev->op == SA)
 	{
+		now->prev->op = -1;
 		now->op = -1;
-		now->next->op = SS;
+	}
+	if (now->prev->op == SB)
+	{
+		now->prev->op = -1;
+		now->op = SS;
 	}
 }
 
 void	optimize_sb(t_oplist *now)
 {
-	if (now->next->op == SA)
+	if (now->prev->op == SB)
 	{
+		now->prev->op = -1;
 		now->op = -1;
-		now->next->op = SS;
+	}
+	if (now->prev->op == SA)
+	{
+		now->prev->op = -1;
+		now->op = SS;
 	}
 }
 
 void	optimize_ss(t_oplist *now)
 {
 	if (now->prev->op == -1 && now->prev->prev->op == SS)
+	{
+		now->prev->prev->op = -1;
 		now->op = -1;
+	}
 }
 
 void	optimize(t_oplist *nop)
