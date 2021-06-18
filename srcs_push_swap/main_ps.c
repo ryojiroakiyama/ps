@@ -16,9 +16,10 @@ void	first_action(t_circl *nil[], t_oplist *nop)
 			px(nil, B, nop);
 		else
 			rx(nil, A, nop);
-		if (nil[B]->next->num == 1)//
-			rx(nil, B, nop);//
+		if (nil[B]->next->num == 1)
+			rx(nil, B, nop);
 	}
+	rrx(nil, B, nop);
 }
 
 void	handle_stackb(t_circl *nil[], t_oplist *nop)
@@ -61,8 +62,8 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 				sx_and_rx(nil, nop);
 			if (prenum == nil[A]->num)
 				px(nil, B, nop);
-			if (nil[B]->next->num == nil[A]->num + 1)//
-				rx(nil, B, nop);//
+			if (nil[B]->next->num == nil[A]->num + 1)
+				rx(nil, B, nop);
 		}
 		handle_stackb(nil, nop);
 	}
