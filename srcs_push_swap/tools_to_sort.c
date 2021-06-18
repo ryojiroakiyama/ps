@@ -1,5 +1,33 @@
 # include "../header.h"
 
+int	detect(t_circl *nil[])
+{
+	if (nil[A]->size < 2)
+		return (0);
+	if (nil[B]->next->num == nil[A]->num)
+		return (1);
+	if (nil[A]->num == nil[A]->next->next->num)
+		return (1);
+	if (nil[A]->num == nil[A]->next->num)
+		return (1);
+	return (0);
+}
+
+void	sx_and_rx(t_circl *nil[], t_oplist *nop)
+{
+//	if (nil[A]->size < 2)
+//		return ;
+	if (nil[B]->next->num == nil[A]->num)
+		px(nil, A, nop);
+	if (nil[A]->num == nil[A]->next->next->num)
+		sx(nil, A, nop);
+	if (nil[A]->num == nil[A]->next->num)
+	{
+		rx(nil, A, nop);
+		nil[A]->num++;
+	}
+}
+/*
 int	sx_and_rx(t_circl *nil[], t_oplist *nop, int i)
 {
 	if (nil[i]->size < 2)
@@ -15,7 +43,7 @@ int	sx_and_rx(t_circl *nil[], t_oplist *nop, int i)
 	else
 		return (1);
 }
-
+*/
 int	get_minnum(t_circl	*nil[], int i)
 {
 	int		 min;
@@ -97,7 +125,8 @@ void	sort_5v_B(t_circl *nil[], t_oplist *nop)
 	{
 		rx_or_rrx(nil, B, push_num, nop);
 		px(nil, A, nop);
-		sx_and_rx(nil, nop, A);
+//		sx_and_rx(nil, nop, A);
+		sx_and_rx(nil, nop);
 		push_num++;
 	}
 	sort_3v(nil, B, nop);
@@ -141,6 +170,7 @@ void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
 	while (nil[B]->size)
 	{
 		px(nil, A, nop);
-		sx_and_rx(nil, nop, A);
+//		sx_and_rx(nil, nop, A);
+		sx_and_rx(nil, nop);
 	}
 }
