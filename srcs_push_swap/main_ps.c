@@ -1,5 +1,6 @@
 # include "../header.h"
 
+/*
 void	first_action(t_circl *nil[], t_oplist *nop)
 {
 	int		median;
@@ -18,6 +19,52 @@ void	first_action(t_circl *nil[], t_oplist *nop)
 			rx(nil, A, nop);
 	}
 }
+*/
+
+void	first_action(t_circl *nil[], t_oplist *nop)
+{
+	int		median;
+	int		clsize;
+
+	sort_under5v(nil, A, nop);
+	if (is_sorted(nil, A))
+		ft_exit(nil, nop, 0);
+	median = nil[A]->size / 2;
+	clsize = nil[A]->size;
+	while (clsize--)
+	{
+		if (nil[A]->next->num <= median)
+			px(nil, B, nop);
+		else
+			rx(nil, A, nop);
+	}
+}
+
+/*
+void	handle_stackb(t_circl *nil[], t_oplist *nop)
+{
+	int		median;
+	int		clsize;
+
+	while (nil[B]->size > 5)
+	{
+		clsize = nil[B]->size;
+		median = nil[B]->class - (nil[B]->size / 2);
+		while (clsize--)
+		{
+			if (nil[B]->next->num > median)
+				px(nil, A, nop);
+			else if (nil[B]->next->num == nil[A]->num)
+				px(nil, A, nop);
+			else
+				rx(nil, B, nop);
+			sx_and_rx(nil, nop, A);
+		}
+		nil[B]->class = median;
+	}
+	sort_under5v(nil, B, nop);
+}
+*/
 
 void	handle_stackb(t_circl *nil[], t_oplist *nop)
 {
@@ -43,6 +90,7 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 	sort_under5v(nil, B, nop);
 }
 
+/*
 void	sort_roop(t_circl *nil[], t_oplist *nop)
 {
 	int		class;
@@ -55,6 +103,29 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 		{
 			if (sx_and_rx(nil, nop, A) == 1)
 				px(nil, B, nop);
+		}
+		handle_stackb(nil, nop);
+	}
+}
+*/
+
+void	sort_roop(t_circl *nil[], t_oplist *nop)
+{
+	int		class;
+
+	handle_stackb(nil, nop);
+	while (nil[A]->next->num != 1)
+	{
+		class = nil[A]->next->class;
+		while (nil[A]->next->class == class)
+		{
+			if (sx_and_rx(nil, nop, A) == 1)
+				px(nil, B, nop);
+			if (nil[B]->next->num == nil[A]->num)
+			{
+				px(nil, A, nop);
+				sx_and_rx(nil, nop, A);
+			}
 		}
 		handle_stackb(nil, nop);
 	}
