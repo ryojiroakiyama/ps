@@ -66,19 +66,29 @@ int	get_minnum(t_circl	*nil[], int i)
 	return (min);
 }
 
-void	rx_or_rrx(t_circl *nil[], int i, int dst, t_oplist *nop)
+int	get_rx_or_rrx(t_circl *nil[], int i, int dst)
 {
 	int		posit;
-	t_circl *tmp;
+	t_circl *move;
 
 	posit = 1;
-	tmp = nil[i]->next;
-	while (tmp->next->num != dst)
+	move = nil[i]->next;
+	while (move->next->num != dst)
 	{
+		if (move == nil[i])
+			return (-1);
 		posit++;
-		tmp = tmp->next;
+		move = move->next;
 	}
 	if (posit <= nil[i]->size / 2)
+		return (0);
+	else
+		return (1);
+}
+
+void	rotate_dst(t_circl *nil[], int i, int dst, t_oplist *nop)
+{
+	if (get_rx_or_rrx(nil, i, dst) == 0)
 	{
 		while (nil[i]->next->num != dst)
 			rx(nil, i, nop);
@@ -129,7 +139,7 @@ void	sort_5v_B(t_circl *nil[], t_oplist *nop)
 	push_num = get_minnum(nil, B);
 	while (nil[B]->size > 3)
 	{
-		rx_or_rrx(nil, B, push_num, nop);
+		rotate_dst(nil, B, push_num, nop);
 		px(nil, A, nop);
 //		sx_and_rx(nil, nop, A);
 		sx_and_rx(nil, nop);
@@ -149,7 +159,7 @@ void	sort_5v_A(t_circl *nil[], t_oplist *nop)
 	push_num = get_minnum(nil, A);
 	while (nil[A]->size > 3)
 	{
-		rx_or_rrx(nil, A, push_num, nop);
+		rotate_dst(nil, A, push_num, nop);
 		px(nil, B, nop);
 		push_num++;
 	}
