@@ -33,23 +33,7 @@ void	sx_and_rx(t_circl *nil[], t_oplist *nop)
 		nil[A]->num++;
 	}
 }
-/*
-int	sx_and_rx(t_circl *nil[], t_oplist *nop, int i)
-{
-	if (nil[i]->size < 2)
-		return (1);
-	if (nil[i]->num == nil[i]->next->next->num)
-		sx(nil, i, nop);
-	if (nil[i]->num == nil[i]->next->num)
-	{
-		rx(nil, i, nop);
-		nil[i]->num++;
-		return (0);
-	}
-	else
-		return (1);
-}
-*/
+
 int	get_minnum(t_circl	*nil[], int i)
 {
 	int		 min;
@@ -128,44 +112,26 @@ void	sort_3v(t_circl *nil[], int i, t_oplist *nop)
 	}
 }
 
-void	sort_5v_B(t_circl *nil[], t_oplist *nop)
+void	sort_5v(t_circl *nil[], int i, t_oplist *nop)
 {
 	int		push_num;
 	int		presize;
 
-	presize = nil[B]->size;
-	if (is_sorted(nil, B))
+	presize = nil[i]->size;
+	if (is_sorted(nil, i))
 		return ;
-	push_num = get_minnum(nil, B);
-	while (nil[B]->size > 3)
+	push_num = get_minnum(nil, i);
+	while (nil[i]->size > 3)
 	{
-		rotate_dst(nil, B, push_num, nop);
-		px(nil, A, nop);
-//		sx_and_rx(nil, nop, A);
-		sx_and_rx(nil, nop);
+		rotate_dst(nil, i, push_num, nop);
+		px(nil, (i - 1) * -1 , nop);
+		if (i == B)
+			sx_and_rx(nil, nop);
 		push_num++;
 	}
-	sort_3v(nil, B, nop);
-}
-
-void	sort_5v_A(t_circl *nil[], t_oplist *nop)
-{
-	int		push_num;
-	int		presize;
-
-	presize = nil[A]->size;
-	if (is_sorted(nil, A))
-		return ;
-	push_num = get_minnum(nil, A);
-	while (nil[A]->size > 3)
-	{
-		rotate_dst(nil, A, push_num, nop);
-		px(nil, B, nop);
-		push_num++;
-	}
-	sort_3v(nil, A, nop);
-	while (nil[A]->size < presize)
-		px(nil, A, nop);
+	sort_3v(nil, i, nop);
+	while (nil[i]->size < presize && i == A)
+		px(nil, i, nop);
 }
 
 void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
@@ -179,14 +145,11 @@ void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
 	}
 	else if (nil[i]->size == 3)
 		sort_3v(nil, i, nop);
-	else if (nil[i]->size <= 5 && i == A)
-		sort_5v_A(nil, nop);
-	else if (nil[i]->size <= 5 && i == B)
-		sort_5v_B(nil, nop);
+	else if (nil[i]->size <= 5)
+		sort_5v(nil, i, nop);
 	while (nil[B]->size)
 	{
 		px(nil, A, nop);
-//		sx_and_rx(nil, nop, A);
 		sx_and_rx(nil, nop);
 	}
 }
