@@ -26,7 +26,6 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 {
 	int		median;
 	int		clsize;
-	int		prenum;
 
 	while (nil[B]->size > 5)
 	{
@@ -34,19 +33,13 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 		median = nil[B]->class - (nil[B]->size / 2);
 		while (clsize--)
 		{
-			prenum = nil[A]->num;
-			while (detect(nil))
-				sx_and_rx(nil, nop);
-			if (prenum == nil[A]->num)
-			{
-				if (nil[B]->next->num > median)
-					px(nil, A, nop);
-				else if (nil[B]->next->num == nil[A]->num)
-					px(nil, A, nop);
-				else
-					rx(nil, B, nop);
-				sx_and_rx(nil, nop);
-			}
+			if (nil[B]->next->num > median)
+				px(nil, A, nop);
+			else if (nil[B]->next->num == nil[A]->num)
+				px(nil, A, nop);
+			else
+				rx(nil, B, nop);
+			sx_and_rx(nil, nop);
 		}
 		nil[B]->class = median;
 	}
