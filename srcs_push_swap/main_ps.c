@@ -39,7 +39,7 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 				px(nil, A, nop);
 			else
 				rx(nil, B, nop);
-			sx_and_rx(nil, nop);
+			to_back_stacka(nil, nop);
 		}
 		nil[B]->class = median;
 	}
@@ -49,7 +49,7 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 void	sort_roop(t_circl *nil[], t_oplist *nop)
 {
 	int		class;
-	int		prenum;
+	int		cnt;
 
 	handle_stackb(nil, nop);
 	while (nil[A]->next->num != 1)
@@ -57,10 +57,10 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 		class = nil[A]->next->class;
 		while (nil[A]->next->class == class)
 		{
-			prenum = nil[A]->num;
-			while (detect(nil))
-				sx_and_rx(nil, nop);
-			if (prenum == nil[A]->num)
+			cnt = 0;
+			while (to_back_stacka(nil, nop))
+				cnt++;
+			if (cnt == 0)
 				px(nil, B, nop);
 			if (nil[B]->next->num == nil[A]->num + 1)
 				rx(nil, B, nop);

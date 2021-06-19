@@ -17,7 +17,7 @@ int	detect(t_circl *nil[])
 	return (0);
 }
 
-void	sx_and_rx(t_circl *nil[], t_oplist *nop)
+int	to_back_stacka(t_circl *nil[], t_oplist *nop)
 {
 //	if (nil[A]->size < 2)
 //		return ;
@@ -31,7 +31,9 @@ void	sx_and_rx(t_circl *nil[], t_oplist *nop)
 	{
 		rx(nil, A, nop);
 		nil[A]->num++;
+		return (1);
 	}
+	return (0);
 }
 
 int	get_minnum(t_circl	*nil[], int i)
@@ -126,7 +128,7 @@ void	sort_5v(t_circl *nil[], int i, t_oplist *nop)
 		rotate_dst(nil, i, push_num, nop);
 		px(nil, (i - 1) * -1 , nop);
 		if (i == B)
-			sx_and_rx(nil, nop);
+			to_back_stacka(nil, nop);
 		push_num++;
 	}
 	sort_3v(nil, i, nop);
@@ -150,6 +152,6 @@ void	sort_under5v(t_circl *nil[], int i, t_oplist *nop)
 	while (nil[B]->size)
 	{
 		px(nil, A, nop);
-		sx_and_rx(nil, nop);
+		to_back_stacka(nil, nop);
 	}
 }

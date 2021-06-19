@@ -66,7 +66,7 @@ void	optimize_rrb(t_oplist *now);
 void	optimize_rrr(t_oplist *now);
 void	put_op(t_oplist *nop);
 int		detect(t_circl *nil[]);
-void	sx_and_rx(t_circl *nil[], t_oplist *nop);
+int		to_back_stacka(t_circl *nil[], t_oplist *nop);
 int		get_minnum(t_circl	*nil[], int i);
 void	rx_or_rrx(t_circl *nil[], int i, int dst, t_oplist *nop);
 void	sort_3v(t_circl *nil[], int i, t_oplist *nop);
