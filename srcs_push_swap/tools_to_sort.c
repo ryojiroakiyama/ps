@@ -1,22 +1,5 @@
 # include "../header.h"
 
-int	detect(t_circl *nil[])
-{
-//	if (nil[A]->size < 2)
-//		return (0);
-//	if (nil[B]->size < 2)
-//		return (0);
-	if (nil[A]->num == nil[B]->prev->num)
-		return (1);
-	if (nil[A]->num == nil[B]->next->num)
-		return (1);
-	if (nil[A]->num == nil[A]->next->next->num)
-		return (1);
-	if (nil[A]->num == nil[A]->next->num)
-		return (1);
-	return (0);
-}
-
 int	to_back_stacka(t_circl *nil[], t_oplist *nop)
 {
 //	if (nil[A]->size < 2)

@@ -65,6 +65,7 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 			if (nil[B]->next->num == nil[A]->num + 1)
 				rx(nil, B, nop);
 		}
+//		to_back_stacka(nil, nop);
 		handle_stackb(nil, nop);
 	}
 }
