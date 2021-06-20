@@ -19,9 +19,45 @@ void	first_action(t_circl *nil[], t_oplist *nop)
 		if (nil[B]->next->num == 1)
 			rx(nil, B, nop);
 	}
-	rrx(nil, B, nop);
+	to_back_stacka(nil, nop);
 }
 
+int	is_over_median(t_circl *nil[], int i, int median)
+{
+	t_circl *move;
+
+	move = nil[i]->next;
+	while (move != nil[i])
+	{
+		if (move->num > median)
+			return (1);
+		move = move->next;
+	}
+	return (0);
+}
+
+void	handle_stackb(t_circl *nil[], t_oplist *nop)
+{
+	int		median;
+
+	while (nil[B]->size > 5)
+	{
+		median = nil[B]->class - (nil[B]->size / 2);
+		while (is_over_median(nil, B, median))
+		{
+			if (nil[B]->next->num > median)
+				px(nil, A, nop);
+			else if (nil[B]->next->num == nil[A]->num)
+				px(nil, A, nop);
+			else
+				rx(nil, B, nop);
+			to_back_stacka(nil, nop);
+		}
+		nil[B]->class = median;
+	}
+	sort_under5v(nil, B, nop);
+}
+/*
 void	handle_stackb(t_circl *nil[], t_oplist *nop)
 {
 	int		median;
@@ -45,7 +81,7 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 	}
 	sort_under5v(nil, B, nop);
 }
-
+*/
 void	sort_roop(t_circl *nil[], t_oplist *nop)
 {
 	int		class;
