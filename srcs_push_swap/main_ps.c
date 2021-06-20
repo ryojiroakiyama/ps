@@ -1,16 +1,28 @@
 # include "../header.h"
 
+int	is_under_median(t_circl *nil[], int i, int median)
+{
+	t_circl *move;
+
+	move = nil[i]->next;
+	while (move != nil[i])
+	{
+		if (move->num <= median)
+			return (1);
+		move = move->next;
+	}
+	return (0);
+}
+
 void	first_action(t_circl *nil[], t_oplist *nop)
 {
 	int		median;
-	int		clsize;
 
 	sort_under5v(nil, A, nop);
 	if (is_sorted(nil, A))
 		ft_exit(nil, nop, 0);
 	median = nil[A]->size / 2;
-	clsize = nil[A]->size;
-	while (clsize--)
+	while (is_under_median(nil, A, median))
 	{
 		if (nil[A]->next->num <= median)
 			px(nil, B, nop);
@@ -41,16 +53,16 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 	int		median;
 	int		cnt;
 
-	cnt = 0;
 	while (nil[B]->size > 5)
 	{
+		cnt = 0;
 		median = nil[B]->class - (nil[B]->size / 2);
 		while (is_over_median(nil, B, median))
 		{
 			if (nil[B]->next->num > median)
 				px(nil, A, nop);
-			else if (nil[B]->next->num == nil[A]->num)
-				px(nil, A, nop);
+//			else if (nil[B]->next->num == nil[A]->num)
+//				px(nil, A, nop);
 			else
 				rx(nil, B, nop);
 			while (to_back_stacka(nil, nop))
