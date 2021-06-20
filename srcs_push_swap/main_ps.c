@@ -39,7 +39,9 @@ int	is_over_median(t_circl *nil[], int i, int median)
 void	handle_stackb(t_circl *nil[], t_oplist *nop)
 {
 	int		median;
+	int		cnt;
 
+	cnt = 0;
 	while (nil[B]->size > 5)
 	{
 		median = nil[B]->class - (nil[B]->size / 2);
@@ -51,37 +53,14 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 				px(nil, A, nop);
 			else
 				rx(nil, B, nop);
-			to_back_stacka(nil, nop);
+			while (to_back_stacka(nil, nop))
+				cnt++;
 		}
 		nil[B]->class = median;
 	}
 	sort_under5v(nil, B, nop);
 }
-/*
-void	handle_stackb(t_circl *nil[], t_oplist *nop)
-{
-	int		median;
-	int		clsize;
 
-	while (nil[B]->size > 5)
-	{
-		clsize = nil[B]->size;
-		median = nil[B]->class - (nil[B]->size / 2);
-		while (clsize--)
-		{
-			if (nil[B]->next->num > median)
-				px(nil, A, nop);
-			else if (nil[B]->next->num == nil[A]->num)
-				px(nil, A, nop);
-			else
-				rx(nil, B, nop);
-			to_back_stacka(nil, nop);
-		}
-		nil[B]->class = median;
-	}
-	sort_under5v(nil, B, nop);
-}
-*/
 void	sort_roop(t_circl *nil[], t_oplist *nop)
 {
 	int		class;
@@ -101,7 +80,8 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 			if (nil[B]->next->num == nil[A]->num + 1)
 				rx(nil, B, nop);
 		}
-//		to_back_stacka(nil, nop);
+		while (to_back_stacka(nil, nop))
+			cnt++;
 		handle_stackb(nil, nop);
 	}
 }
