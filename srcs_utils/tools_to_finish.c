@@ -1,39 +1,4 @@
-# include "../header.h"
-
-void	put_cl(t_circl *nil[], char *comment)
-{
-	int	i;
-	t_circl	*tmp;
-
-	ft_printf("----------%s----------\n", comment);
-	i = 0;
-	while (i < STACK_NUM)
-	{
-		if (i == A)
-			ft_printf("==>a_stack<==\n");
-		if (i == B)
-			ft_printf("==>b_stack<==\n");
-//		ft_printf("clsize:%d\n", nil[i]->size);
-		tmp = nil[i]->next;
-		while (tmp != nil[i])
-		{
-			ft_printf("value:%d\n", tmp->value);
-//			ft_printf("num:%d\n", tmp->num);
-//			ft_printf("class:%d\n", tmp->class);
-			tmp = tmp->next;
-		}
-/*		tmp = nil[i]->prev;
-		ft_printf("------reverse\n");
-		while (tmp != nil[i])
-		{
-			ft_printf("value:%d\n", tmp->value);
-			ft_printf("num:%d\n", tmp->num);
-			ft_printf("class:%d\n", tmp->class);
-			tmp = tmp->prev;
-		}
-*/		i++;
-	}
-}
+#include "../header.h"
 
 void	put_op(t_oplist *nop)
 {
@@ -124,7 +89,6 @@ void	ft_opclear(t_oplist *nop)
 
 void	ft_exit(t_circl *nil[], t_oplist *nop, int result)
 {
-//	put_cl(nil, "last");//
 	if (result == 1)
 		write(2, "Error\n", 6);
 	else
@@ -132,12 +96,14 @@ void	ft_exit(t_circl *nil[], t_oplist *nop, int result)
 		if (nil[A]->class != -1)
 			put_op(nop);
 		else
-			write(1, "OK\n", 3);
+		{
+			if (is_sorted(nil, A) && nil[B]->next == nil[B])
+				write(1, "OK\n", 3);
+			else
+				write(1, "KO\n", 3);
+		}
 	}
-//	if (is_sorted(nil, A))//
-//		ft_printf("----------------------ok!\n");//
 	ft_clclear(nil);
 	ft_opclear(nop);
-//	system("leaks a.out");//
 	exit(result);
 }

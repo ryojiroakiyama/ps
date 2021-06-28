@@ -1,6 +1,7 @@
-# include "../header.h"
+#include "../header.h"
 
-static	int	conv_to_int(const char *str, int sign, t_circl *nil[], t_oplist *nop)
+static	int	conv_to_int(const char *str, int sign
+							, t_circl *nil[], t_oplist *nop)
 {
 	int	nb;
 	int	tmp_nb;
@@ -50,7 +51,7 @@ int	ft_atoi_ps(const char *str, t_circl *nil[], t_oplist *nop)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] != '\0' || s2[i] != '\0')

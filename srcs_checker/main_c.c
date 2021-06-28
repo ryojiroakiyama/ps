@@ -1,11 +1,7 @@
-# include "../header.h"
+#include "../header.h"
 
-int	find_op(char *line)
+static int	is_op(char *line)
 {
-	if (line == NULL)
-		return (-1);
-	if (*line == '\0')
-		return (-2);
 	if (ft_strcmp("sa", line) == 0)
 		return (SA);
 	if (ft_strcmp("sb", line) == 0)
@@ -31,6 +27,15 @@ int	find_op(char *line)
 	return (-3);
 }
 
+int	find_op(char *line)
+{
+	if (line == NULL)
+		return (-1);
+	if (*line == '\0')
+		return (-2);
+	return (is_op(line));
+}
+
 void	make_oplist(t_circl *nil[], t_oplist *nop)
 {
 	t_oplist	*tmp;
@@ -47,7 +52,7 @@ void	make_oplist(t_circl *nil[], t_oplist *nop)
 		line = NULL;
 		if (sign != 1 || nop->prev->op < 0)
 		{
-			if (sign == 0 && nop->prev->op == -2)//have to consider if instruction don't exist or not
+			if (sign == 0 && nop->prev->op == -2)
 			{
 				tmp = nop->prev;
 				ft_oplost(nop->prev);
@@ -59,28 +64,7 @@ void	make_oplist(t_circl *nil[], t_oplist *nop)
 		}
 	}
 }
-/*
-static	void	tmput_op(int op)//
-{
-	void		*op_str[OP_NUM];
 
-	op_str[SA] = "sa\n";
-	op_str[SB] = "sb\n";
-	op_str[SS] = "ss\n";
-	op_str[PA] = "pa\n";
-	op_str[PB] = "pb\n";
-	op_str[RA] = "ra\n";
-	op_str[RB] = "rb\n";
-	op_str[RR] = "rr\n";
-	op_str[RRA] = "rra\n";
-	op_str[RRB] = "rrb\n";
-	op_str[RRR] = "rrr\n";
-	if (SA <= op && op <= RR)
-		write(1, op_str[op], 3);
-	if (RR < op)
-		write(1, op_str[op], 4);
-}
-*/
 void	execute_op(t_circl *nil[], t_oplist *nop)
 {
 	void		(*f[OP_NUM])(t_circl *nil[]);
@@ -105,7 +89,7 @@ void	execute_op(t_circl *nil[], t_oplist *nop)
 	}
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
 	t_circl		*nil[STACK_NUM];
 	t_oplist	*nop;
@@ -123,9 +107,6 @@ int main(int ac, char *av[])
 	nil[A]->class = -1;
 	make_oplist(nil, nop);
 	execute_op(nil, nop);
-	if (is_sorted(nil, A))//have to consider about if stack_b is empty or not
-		ft_exit(nil, nop, 0);
-	else
-		write(1, "KO\n", 3);
+	ft_exit(nil, nop, 0);
 	return (0);
 }

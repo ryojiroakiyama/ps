@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-	# define BUFFER_SIZE 32
+# define BUFFER_SIZE 32
 #endif
 
 int	ft_free(char **f)

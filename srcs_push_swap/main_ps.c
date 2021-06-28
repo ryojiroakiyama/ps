@@ -1,18 +1,4 @@
-# include "../header.h"
-
-int	is_under_median(t_circl *nil[], int i, int median)
-{
-	t_circl *move;
-
-	move = nil[i]->next;
-	while (move != nil[i])
-	{
-		if (move->num <= median)
-			return (1);
-		move = move->next;
-	}
-	return (0);
-}
+#include "../header.h"
 
 void	first_action(t_circl *nil[], t_oplist *nop)
 {
@@ -34,20 +20,6 @@ void	first_action(t_circl *nil[], t_oplist *nop)
 	to_back_stacka(nil, nop);
 }
 
-int	is_over_median(t_circl *nil[], int i, int median)
-{
-	t_circl *move;
-
-	move = nil[i]->next;
-	while (move != nil[i])
-	{
-		if (move->num > median)
-			return (1);
-		move = move->next;
-	}
-	return (0);
-}
-
 void	handle_stackb(t_circl *nil[], t_oplist *nop)
 {
 	int		median;
@@ -61,8 +33,6 @@ void	handle_stackb(t_circl *nil[], t_oplist *nop)
 		{
 			if (nil[B]->next->num > median)
 				px(nil, A, nop);
-//			else if (nil[B]->next->num == nil[A]->num)
-//				px(nil, A, nop);
 			else
 				rx(nil, B, nop);
 			while (to_back_stacka(nil, nop))
@@ -98,7 +68,7 @@ void	sort_roop(t_circl *nil[], t_oplist *nop)
 	}
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
 	t_circl		*nil[STACK_NUM];
 	t_oplist	*nop;

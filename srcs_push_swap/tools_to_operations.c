@@ -1,4 +1,4 @@
-# include "../header.h"
+#include "../header.h"
 
 void	sx(t_circl *nil[], int i, t_oplist *nop)
 {

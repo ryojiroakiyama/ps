@@ -10,7 +10,7 @@ SRCS_G = gnl/get_next_line.c gnl/get_next_line_utils.c
 
 SRCS_U = srcs_utils/libfunc.c srcs_utils/operations1.c srcs_utils/operations2.c srcs_utils/operations3.c srcs_utils/tools_of_circl.c srcs_utils/tools_of_oplist.c srcs_utils/tools_to_finish.c
 
-SRCS_PS = srcs_push_swap/main_ps.c srcs_push_swap/optimize_func1.c srcs_push_swap/optimize_func2.c srcs_push_swap/optimize_func3.c srcs_push_swap/tools_to_sort.c srcs_push_swap/tools_to_operations.c
+SRCS_PS = srcs_push_swap/main_ps.c srcs_push_swap/optimize_func1.c srcs_push_swap/optimize_func2.c srcs_push_swap/optimize_func3.c srcs_push_swap/tools_to_sort.c srcs_push_swap/tools_to_operations.c srcs_push_swap/utils.c
 
 SRCS_C = srcs_checker/main_c.c
 
@@ -37,10 +37,10 @@ ${NAME_U}: ${OBJS_U} ${HEADER}
 	ar rcs ${NAME_U} ${OBJS_U}
 
 ${NAME_PS}: ${SRCS_PS} ${NAME_U} ${HEADER}
-	${CC} ${CFLAGS} -o ${NAME_PS} ${SRCS_PS} ${NAME_U} libftprintf.a
+	${CC} ${CFLAGS} -o ${NAME_PS} ${SRCS_PS} ${NAME_U}
 
 ${NAME_C}: ${SRCS_C} ${NAME_G} ${NAME_U} ${HEADER}
-	${CC} ${CFLAGS} -o ${NAME_C} ${SRCS_C} ${NAME_G} ${NAME_U} libftprintf.a
+	${CC} ${CFLAGS} -o ${NAME_C} ${SRCS_C} ${NAME_G} ${NAME_U}
 
 bonus: ${NAME_C}
 
